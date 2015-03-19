@@ -1,0 +1,29 @@
+<select>
+        {% for reg in region %}
+            <option value="{{ reg.id }}">{{ reg.name }}</option>
+
+        {% endfor %}
+    </select>
+
+<script>
+        $(function () {
+
+             $('.append select').on('change', function() {
+                    var regionid1 = ( this.value ); // or $(this).val()
+                    var regionid = parseInt(regionid1)
+                 $.ajax({
+                        url: "/home/getrcity/"+regionid,
+                        type: "GET",
+                        dataType: 'html',
+                        success: function (html) {
+
+                                    $('.city').html(html);
+                                        },
+                            error: function () {
+
+                                    }
+	                    });
+                });
+
+        });
+    </script>

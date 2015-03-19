@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="first">
+    <select>
+        {% for count in country %}
+            <option value="{{ count.id }}" id="">{{ count.name }}</option>
+
+        {% endfor %}
+    </select>
+    </div>
+    <div class="append">
+
+    </div>
+    <div class="city">
+
+    </div>
+    <script>
+        $(function () {
+            $('.first select').on('change', function() {
+                    var idcountry = $(this).attr('id')//( this.value ); // or $(this).val()
+                    var contryid = parseInt(idcountry)
+
+                 $.ajax({
+                        url: "/home/getregion/"+contryid,
+                        type: "GET",
+                        dataType: 'html',
+                        success: function (html) {
+
+                                    $('.append').html(html);
+                                        },
+                            error: function () {
+
+                                    }
+	                    });
+                });
+
+             $('.append select').on('change', function() {
+                 alert("changed");
+                    var regionget = $(this).next().val(); // or $(this).val()
+                    var regionid = parseInt(regionid)
+                    alert(regionid);
+                 $.ajax({
+                        url: "/home/getcity/"+regionid,
+                        type: "GET",
+                        dataType: 'html',
+                        success: function (html) {
+
+                                    $('.city').html(html);
+                                        },
+                            error: function () {
+
+                                    }
+	                    });
+                });
+
+        });
+    </script>
+
+{% endblock %}
